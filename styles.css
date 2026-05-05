@@ -1,0 +1,157 @@
+/* ================================================================
+   LCN Consulting — Site Styles
+   ================================================================
+   Brand palette
+   - Primary navy:    #014083
+   - Secondary blue:  #617EB5
+   - Light blue:      #9AAFD4
+   - Slate:           #2d3a4f
+   - Background tint: #f8fafc / #eef2f8
+   ================================================================ */
+
+:root {
+  --lcn-navy: #014083;
+  --lcn-navy-dark: #012d5c;
+  --lcn-blue: #617EB5;
+  --lcn-light: #9AAFD4;
+  --lcn-slate: #2d3a4f;
+  --lcn-bg-tint: #f8fafc;
+  --lcn-bg-tint-2: #eef2f8;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------- Nav link underline-grow ------------------------------ */
+.nav-link {
+  position: relative;
+  padding-bottom: 4px;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--lcn-navy);
+  transition: width 0.3s ease;
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* ---------- Form input focus (HubSpot embed) --------------------- */
+.hs-form-frame input[type="text"],
+.hs-form-frame input[type="email"],
+.hs-form-frame input[type="tel"],
+.hs-form-frame textarea,
+.hs-form-frame select {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.hs-form-frame input[type="text"]:focus,
+.hs-form-frame input[type="email"]:focus,
+.hs-form-frame input[type="tel"]:focus,
+.hs-form-frame textarea:focus,
+.hs-form-frame select:focus {
+  outline: none;
+  border-color: var(--lcn-blue);
+  box-shadow: 0 0 0 3px rgba(97, 126, 181, 0.15);
+}
+
+/* ---------- Background grid patterns ----------------------------- */
+.grid-pattern {
+  background-image:
+    linear-gradient(to right, rgba(97, 126, 181, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(97, 126, 181, 0.08) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.grid-pattern-light {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ---------- Reveal-on-scroll animation --------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- Card lift hover --------------------------------------- */
+.card-lift {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -15px rgba(1, 64, 131, 0.18);
+}
+
+/* ---------- Decorative accent line -------------------------------- */
+.accent-line {
+  display: inline-block;
+  width: 32px;
+  height: 1px;
+  background-color: var(--lcn-blue);
+  margin-right: 12px;
+  vertical-align: middle;
+}
+
+/* ---------- Gradient card backgrounds ----------------------------- */
+.gradient-card-1 {
+  background: linear-gradient(135deg, var(--lcn-blue) 0%, var(--lcn-navy) 100%);
+}
+.gradient-card-2 {
+  background: linear-gradient(135deg, var(--lcn-light) 0%, var(--lcn-blue) 100%);
+}
+.gradient-card-3 {
+  background: linear-gradient(135deg, var(--lcn-navy) 0%, #0d1929 100%);
+}
+.gradient-card-4 {
+  background: linear-gradient(135deg, var(--lcn-light) 0%, var(--lcn-navy) 100%);
+}
+
+/* ---------- FAQ accordion icon rotation -------------------------- */
+[data-faq-icon] {
+  transition: transform 0.25s ease;
+}
+[data-faq].open [data-faq-icon] {
+  transform: rotate(180deg);
+}
+
+/* ---------- Print --------------------------------------------------- */
+@media print {
+  .reveal { opacity: 1 !important; transform: none !important; }
+  header, footer { display: none; }
+}
