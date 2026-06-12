@@ -31,11 +31,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss-browser/4.1.13/index.global.min.js"></script>
   <link rel="stylesheet" href="styles.css">
-
-  <!-- Begin Constant Contact Active Forms -->
-  <script> var _ctct_m = "69b76a6619a373e3b2658eaf6afe66be"; </script>
-  <script id="signupScript" src="//static.ctctcdn.com/js/signup-form-widget/current/signup-form-widget.min.js" async defer></script>
-  <!-- End Constant Contact Active Forms -->
 </head>
 <body class="bg-white text-gray-800 antialiased">
 
@@ -132,9 +127,74 @@
           <div class="lg:col-span-3 reveal">
             <h2 class="text-3xl font-semibold text-[#014083] mb-2">Send Us a Message</h2>
             <p class="text-gray-600 mb-8">Tell us a bit about your project. We respond within one business day.</p>
-            <!-- Begin Constant Contact Inline Form Code -->
-            <div class="ctct-inline-form" data-form-id="1a338d57-6a06-4cd4-a28a-1fbfc5f6269c"></div>
-            <!-- End Constant Contact Inline Form Code -->
+            <!-- Native on-brand contact form (submits to Web3Forms → emails you + Constant Contact) -->
+            <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" class="space-y-5">
+
+              <!-- Web3Forms access key — REPLACE with your key from web3forms.com -->
+              <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY_HERE">
+              <!-- Subject line of the email you receive -->
+              <input type="hidden" name="subject" value="New contact form submission — LCN Consulting">
+              <input type="hidden" name="from_name" value="LCN Consulting Website">
+              <!-- Honeypot spam filter (hidden from humans) -->
+              <input type="checkbox" name="botcheck" class="hidden" style="display:none;">
+
+              <div class="grid sm:grid-cols-2 gap-5">
+                <div>
+                  <label for="firstName" class="block text-sm font-medium text-[#014083] mb-2">First Name <span class="text-red-500">*</span></label>
+                  <input type="text" id="firstName" name="First Name" required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#617EB5] focus:border-transparent transition-all">
+                </div>
+                <div>
+                  <label for="lastName" class="block text-sm font-medium text-[#014083] mb-2">Last Name <span class="text-red-500">*</span></label>
+                  <input type="text" id="lastName" name="Last Name" required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#617EB5] focus:border-transparent transition-all">
+                </div>
+              </div>
+
+              <div>
+                <label for="email" class="block text-sm font-medium text-[#014083] mb-2">Email <span class="text-red-500">*</span></label>
+                <input type="email" id="email" name="email" required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#617EB5] focus:border-transparent transition-all">
+              </div>
+
+              <div>
+                <label for="phone" class="block text-sm font-medium text-[#014083] mb-2">Phone</label>
+                <input type="tel" id="phone" name="Phone"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#617EB5] focus:border-transparent transition-all">
+              </div>
+
+              <div>
+                <label for="services" class="block text-sm font-medium text-[#014083] mb-2">What services are you interested in?</label>
+                <select id="services" name="Services Interested In"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-md text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-[#617EB5] focus:border-transparent transition-all">
+                  <option value="">Select an option</option>
+                  <option value="Primary Research &amp; Expert Engagement">Primary Research &amp; Expert Engagement</option>
+                  <option value="Competitive Intelligence">Competitive Intelligence</option>
+                  <option value="Analytics &amp; Forecasting">Analytics &amp; Forecasting</option>
+                  <option value="Strategic Consulting">Strategic Consulting</option>
+                  <option value="Not sure yet / Multiple">Not sure yet / Multiple</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="message" class="block text-sm font-medium text-[#014083] mb-2">Message</label>
+                <textarea id="message" name="Message" rows="4" placeholder="Tell us a bit about your project..."
+                  class="w-full px-4 py-3 border border-gray-300 rounded-md text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#617EB5] focus:border-transparent transition-all resize-y"></textarea>
+              </div>
+
+              <p class="text-xs text-gray-500 leading-relaxed">
+                By submitting this form, you consent to receive marketing emails from LCN Consulting, 175 Fairfield Ave, West Caldwell, NJ 07006, http://www.lcnconsult.com. You can revoke your consent to receive emails at any time by using the unsubscribe link found at the bottom of every email. Emails are serviced by Constant Contact.
+              </p>
+
+              <button type="submit" id="submitBtn"
+                class="w-full inline-flex items-center justify-center px-8 py-4 bg-[#014083] text-white font-semibold tracking-wide rounded-md hover:bg-[#012d5c] transition-all hover:shadow-xl disabled:opacity-60 disabled:cursor-not-allowed">
+                <span id="submitText">Submit</span>
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+              </button>
+
+              <!-- Success / error message -->
+              <div id="formResult" class="hidden text-sm font-medium px-4 py-3 rounded-md"></div>
+            </form>
           </div>
 
           <!-- Contact Info (UPDATED phone + address) -->
@@ -310,5 +370,46 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    // Contact form: submit via AJAX to Web3Forms, show inline success/error
+    (function () {
+      const form = document.getElementById('contactForm');
+      if (!form) return;
+      const result = document.getElementById('formResult');
+      const submitBtn = document.getElementById('submitBtn');
+      const submitText = document.getElementById('submitText');
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+
+        submitBtn.disabled = true;
+        submitText.textContent = 'Sending...';
+        result.className = 'hidden';
+
+        try {
+          const response = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+          });
+          const data = await response.json();
+
+          if (data.success) {
+            result.textContent = 'Thank you — your message has been sent. We respond within one business day.';
+            result.className = 'text-sm font-medium px-4 py-3 rounded-md bg-green-50 text-green-800 border border-green-200';
+            form.reset();
+          } else {
+            throw new Error(data.message || 'Submission failed');
+          }
+        } catch (err) {
+          result.textContent = 'Something went wrong. Please try again, or email us directly at info@lcnconsult.com.';
+          result.className = 'text-sm font-medium px-4 py-3 rounded-md bg-red-50 text-red-800 border border-red-200';
+        } finally {
+          submitBtn.disabled = false;
+          submitText.textContent = 'Submit';
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
