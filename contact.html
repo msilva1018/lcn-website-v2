@@ -31,6 +31,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss-browser/4.1.13/index.global.min.js"></script>
   <link rel="stylesheet" href="styles.css">
+  <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 </head>
 <body class="bg-white text-gray-800 antialiased">
 
@@ -183,10 +184,17 @@
               </div>
 
               <p class="text-xs text-gray-500 leading-relaxed">
-                By submitting this form, you consent to receive marketing emails from LCN Consulting, 175 Fairfield Ave, West Caldwell, NJ 07006, http://www.lcnconsult.com. You can revoke your consent to receive emails at any time by using the unsubscribe link found at the bottom of every email. Emails are serviced by Constant Contact.
+                By submitting this form, you consent to receive marketing emails from LCN Consulting, 175 Fairfield Ave, West Caldwell, NJ 07006, http://www.lcnconsult.com. You can revoke your consent to receive emails at any time by using the unsubscribe link found at the bottom of every email.
               </p>
 
-              <button type="submit" id="submitBtn"
+              <!-- hCaptcha — uses Web3Forms' shared sitekey; works out of the box -->
+              <div class="h-captcha"
+                   data-captcha="true"
+                   data-sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
+                   data-callback="hcaptchaSolved"
+                   data-expired-callback="hcaptchaExpired"></div>
+
+              <button type="submit" id="submitBtn" disabled
                 class="w-full inline-flex items-center justify-center px-8 py-4 bg-[#014083] text-white font-semibold tracking-wide rounded-md hover:bg-[#012d5c] transition-all hover:shadow-xl disabled:opacity-60 disabled:cursor-not-allowed">
                 <span id="submitText">Submit</span>
                 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
@@ -379,8 +387,25 @@
       const submitBtn = document.getElementById('submitBtn');
       const submitText = document.getElementById('submitText');
 
+      // hCaptcha callbacks — enable submit only when the captcha is solved
+      window.hcaptchaSolved = function () {
+        submitBtn.disabled = false;
+      };
+      window.hcaptchaExpired = function () {
+        submitBtn.disabled = true;
+      };
+
       form.addEventListener('submit', async function (e) {
         e.preventDefault();
+
+        // Safety check: ensure captcha was completed
+        const captchaResponse = form.querySelector('[name="h-captcha-response"]');
+        if (!captchaResponse || !captchaResponse.value) {
+          result.textContent = 'Please complete the "I\'m not a robot" check before submitting.';
+          result.className = 'text-sm font-medium px-4 py-3 rounded-md bg-amber-50 text-amber-800 border border-amber-200';
+          return;
+        }
+
         const formData = new FormData(form);
 
         submitBtn.disabled = true;
@@ -398,14 +423,18 @@
             result.textContent = 'Thank you — your message has been sent. We respond within one business day.';
             result.className = 'text-sm font-medium px-4 py-3 rounded-md bg-green-50 text-green-800 border border-green-200';
             form.reset();
+            if (window.hcaptcha) { try { window.hcaptcha.reset(); } catch (e) {} }
+            submitBtn.disabled = true; // require solving captcha again for a new submission
           } else {
             throw new Error(data.message || 'Submission failed');
           }
         } catch (err) {
           result.textContent = 'Something went wrong. Please try again, or email us directly at info@lcnconsult.com.';
           result.className = 'text-sm font-medium px-4 py-3 rounded-md bg-red-50 text-red-800 border border-red-200';
-        } finally {
+          submitText.textContent = 'Submit';
           submitBtn.disabled = false;
+          return;
+        } finally {
           submitText.textContent = 'Submit';
         }
       });
