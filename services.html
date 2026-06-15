@@ -40,6 +40,148 @@
       opacity: 1 !important;
       transform: none !important;
     }
+
+    /* ============================================================
+       CHEVRON PIPELINE TIMELINE
+       ============================================================ */
+    .stage-pipeline {
+      display: flex;
+      width: 100%;
+      gap: 4px;
+    }
+
+    .stage-btn {
+      position: relative;
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 20px 22px 20px 34px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.85);
+      cursor: pointer;
+      font-family: inherit;
+      text-align: center;
+      transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+      /* Chevron shape — arrow pointing right */
+      clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%, 18px 50%);
+    }
+
+    /* First chevron: flat left edge */
+    .stage-btn:first-child {
+      clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%);
+      padding-left: 24px;
+    }
+    /* Last chevron: flat right edge */
+    .stage-btn:last-child {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 18px 50%);
+    }
+
+    .stage-btn-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      opacity: 0.7;
+    }
+    .stage-btn-label {
+      font-size: 0.86rem;
+      font-weight: 600;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+    @media (min-width: 1024px) {
+      .stage-btn-label { font-size: 0.9rem; }
+    }
+
+    .stage-btn:hover {
+      background: rgba(255,255,255,0.16);
+      color: #fff;
+    }
+
+    /* Completed: this stage and all stages before the selected one (cumulative "you are here") */
+    .stage-btn.completed {
+      background: #617EB5;
+      border-color: #617EB5;
+      color: #fff;
+    }
+    .stage-btn.completed .stage-btn-num { opacity: 0.9; }
+
+    /* Active: the currently selected stage — brightest */
+    .stage-btn.is-current {
+      background: #ffffff;
+      border-color: #ffffff;
+      color: #014083;
+    }
+    .stage-btn.is-current .stage-btn-num { opacity: 1; color: #617EB5; }
+
+    /* ============================================================
+       MOBILE: vertical timeline (top -> bottom)
+       ============================================================ */
+    @media (max-width: 768px) {
+      .stage-pipeline {
+        flex-direction: column;
+        gap: 0;
+        max-width: 420px;
+        margin: 0 auto;
+        position: relative;
+        padding-left: 8px;
+      }
+      .stage-btn,
+      .stage-btn:first-child,
+      .stage-btn:last-child {
+        /* Drop the chevron shape on mobile */
+        clip-path: none;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 14px;
+        padding: 18px 20px 18px 52px;
+        text-align: left;
+        border-radius: 10px;
+        margin-bottom: 10px;
+      }
+      /* Vertical connector line behind the nodes */
+      .stage-pipeline::before {
+        content: '';
+        position: absolute;
+        left: 30px;
+        top: 28px;
+        bottom: 28px;
+        width: 2px;
+        background: rgba(255,255,255,0.2);
+        z-index: 0;
+      }
+      /* Node dot for each stage */
+      .stage-btn::before {
+        content: '';
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #012d5c;
+        border: 2px solid rgba(255,255,255,0.4);
+        z-index: 1;
+        transition: background 0.25s ease, border-color 0.25s ease;
+      }
+      .stage-btn.completed::before {
+        background: #617EB5;
+        border-color: #fff;
+      }
+      .stage-btn.is-current::before {
+        background: #fff;
+        border-color: #fff;
+      }
+      .stage-btn-label { white-space: normal; }
+    }
   </style>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -122,13 +264,32 @@
             Jump to <span class="font-semibold">your stage.</span>
           </h2>
         </div>
-        <div class="flex flex-wrap justify-center gap-3 lg:gap-4" id="stageButtons">
-          <button type="button" data-stage="preclinical" class="stage-btn px-6 lg:px-7 py-3 lg:py-3.5 text-base lg:text-lg font-semibold text-white bg-white/10 border border-white/30 rounded-full backdrop-blur-sm hover:bg-white hover:text-[#014083] hover:border-white transition-all">Preclinical</button>
-          <button type="button" data-stage="phase-1" class="stage-btn px-6 lg:px-7 py-3 lg:py-3.5 text-base lg:text-lg font-semibold text-white bg-white/10 border border-white/30 rounded-full backdrop-blur-sm hover:bg-white hover:text-[#014083] hover:border-white transition-all">Phase 1</button>
-          <button type="button" data-stage="phase-2" class="stage-btn px-6 lg:px-7 py-3 lg:py-3.5 text-base lg:text-lg font-semibold text-white bg-white/10 border border-white/30 rounded-full backdrop-blur-sm hover:bg-white hover:text-[#014083] hover:border-white transition-all">Phase 2</button>
-          <button type="button" data-stage="phase-3" class="stage-btn px-6 lg:px-7 py-3 lg:py-3.5 text-base lg:text-lg font-semibold text-white bg-white/10 border border-white/30 rounded-full backdrop-blur-sm hover:bg-white hover:text-[#014083] hover:border-white transition-all">Phase 3 &amp; Submission</button>
-          <button type="button" data-stage="pre-launch" class="stage-btn px-6 lg:px-7 py-3 lg:py-3.5 text-base lg:text-lg font-semibold text-white bg-white/10 border border-white/30 rounded-full backdrop-blur-sm hover:bg-white hover:text-[#014083] hover:border-white transition-all">Pre-Launch</button>
-          <button type="button" data-stage="in-market" class="stage-btn px-6 lg:px-7 py-3 lg:py-3.5 text-base lg:text-lg font-semibold text-white bg-white/10 border border-white/30 rounded-full backdrop-blur-sm hover:bg-white hover:text-[#014083] hover:border-white transition-all">In-Market</button>
+        <!-- Chevron pipeline timeline (desktop) / vertical timeline (mobile) -->
+        <div class="stage-pipeline" id="stageButtons" role="tablist" aria-label="Product lifecycle stages">
+          <button type="button" role="tab" data-stage="preclinical" data-index="0" class="stage-btn">
+            <span class="stage-btn-num">01</span>
+            <span class="stage-btn-label">Preclinical</span>
+          </button>
+          <button type="button" role="tab" data-stage="phase-1" data-index="1" class="stage-btn">
+            <span class="stage-btn-num">02</span>
+            <span class="stage-btn-label">Phase 1</span>
+          </button>
+          <button type="button" role="tab" data-stage="phase-2" data-index="2" class="stage-btn">
+            <span class="stage-btn-num">03</span>
+            <span class="stage-btn-label">Phase 2</span>
+          </button>
+          <button type="button" role="tab" data-stage="phase-3" data-index="3" class="stage-btn">
+            <span class="stage-btn-num">04</span>
+            <span class="stage-btn-label">Phase 3 &amp; Submission</span>
+          </button>
+          <button type="button" role="tab" data-stage="pre-launch" data-index="4" class="stage-btn">
+            <span class="stage-btn-num">05</span>
+            <span class="stage-btn-label">Pre-Launch</span>
+          </button>
+          <button type="button" role="tab" data-stage="in-market" data-index="5" class="stage-btn">
+            <span class="stage-btn-num">06</span>
+            <span class="stage-btn-label">In-Market</span>
+          </button>
         </div>
       </div>
     </section>
@@ -535,48 +696,44 @@
 
   <script src="script.js"></script>
   <script>
-    // Product Lifecycle — tab behavior: show only the selected stage, hide the rest
+    // Product Lifecycle — chevron pipeline tabs with cumulative "you are here" fill
     (function () {
-      const buttons = document.querySelectorAll('.stage-btn');
+      const buttons = Array.prototype.slice.call(document.querySelectorAll('.stage-btn'));
       const panels = document.querySelectorAll('.stage-panel');
       const placeholder = document.getElementById('stagePlaceholder');
       if (!buttons.length || !panels.length) return;
 
-      const activeClasses = ['bg-white', 'text-[#014083]', 'border-white'];
-      const idleClasses = ['bg-white/10', 'text-white', 'border-white/30'];
-
-      function setActiveButton(activeBtn) {
+      function setPipelineState(activeIndex) {
         buttons.forEach(function (btn) {
-          if (btn === activeBtn) {
-            idleClasses.forEach(function (c) { btn.classList.remove(c); });
-            activeClasses.forEach(function (c) { btn.classList.add(c); });
-          } else {
-            activeClasses.forEach(function (c) { btn.classList.remove(c); });
-            idleClasses.forEach(function (c) { btn.classList.add(c); });
+          const idx = parseInt(btn.getAttribute('data-index'), 10);
+          btn.classList.remove('completed', 'is-current');
+          btn.setAttribute('aria-selected', 'false');
+          if (idx < activeIndex) {
+            btn.classList.add('completed');      // stages before -> filled
+          } else if (idx === activeIndex) {
+            btn.classList.add('completed', 'is-current'); // selected -> brightest
+            btn.setAttribute('aria-selected', 'true');
           }
         });
       }
 
-      function showStage(stageId, activeBtn) {
+      function showStage(stageId, activeIndex) {
         // Hide all panels
         panels.forEach(function (p) { p.classList.remove('is-active'); });
         // Hide the placeholder prompt
         if (placeholder) placeholder.style.display = 'none';
         // Show the chosen panel
         const target = document.getElementById(stageId);
-        if (target) {
-          target.classList.add('is-active');
-        }
-        setActiveButton(activeBtn);
+        if (target) { target.classList.add('is-active'); }
+        // Update the pipeline fill
+        setPipelineState(activeIndex);
         // Scroll the stage into view smoothly
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
       }
 
       buttons.forEach(function (btn) {
         btn.addEventListener('click', function () {
-          showStage(btn.getAttribute('data-stage'), btn);
+          showStage(btn.getAttribute('data-stage'), parseInt(btn.getAttribute('data-index'), 10));
         });
       });
     })();
