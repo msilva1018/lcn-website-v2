@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services | LCN Consulting — Intelligence across the product lifecycle</title>
+  <meta name="description" content="LCN integrates competitive intelligence, primary research, analytics, and strategy into a single triangulated view — aligned to the business decisions you face at every stage of the product lifecycle.">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/images/favicon-48.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+  <!-- Open Graph / LinkedIn / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Services | LCN Consulting — Intelligence across the product lifecycle">
+  <meta property="og:description" content="LCN integrates competitive intelligence, primary research, analytics, and strategy into a single triangulated view — aligned to the business decisions you face at every stage of the product lifecycle.">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="LCN Consulting">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Services | LCN Consulting">
+  <meta name="twitter:description" content="Intelligence aligned to the business decisions you face at every stage of the product lifecycle.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss-browser/4.1.13/index.global.min.js"></script>
+  <style>
+    /* Stage tab panels: hidden by default, shown when .is-active is added */
+    .stage-panel { display: none; }
+    .stage-panel.is-active { display: block; }
+    /* Ensure reveal content is fully visible inside an active panel
+       (don't depend on the scroll observer re-firing for hidden-then-shown content) */
+    .stage-panel.is-active .reveal {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    /* ============================================================
+       CHEVRON PIPELINE TIMELINE
+       ============================================================ */
+    .stage-pipeline {
+      display: flex;
+      width: 100%;
+      gap: 4px;
+    }
+
+    .stage-btn {
+      position: relative;
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 20px 22px 20px 34px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.85);
+      cursor: pointer;
+      font-family: inherit;
+      text-align: center;
+      transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+      /* Chevron shape — arrow pointing right */
+      clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%, 18px 50%);
+    }
+
+    /* First chevron: flat left edge */
+    .stage-btn:first-child {
+      clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 50%, calc(100% - 18px) 100%, 0 100%);
+      padding-left: 24px;
+    }
+    /* Last chevron: flat right edge */
+    .stage-btn:last-child {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 18px 50%);
+    }
+
+    .stage-btn-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      opacity: 0.7;
+    }
+    .stage-btn-label {
+      font-size: 0.86rem;
+      font-weight: 600;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+    @media (min-width: 1024px) {
+      .stage-btn-label { font-size: 0.9rem; }
+    }
+
+    .stage-btn:hover {
+      background: rgba(255,255,255,0.16);
+      color: #fff;
+    }
+
+    /* Completed: this stage and all stages before the selected one (cumulative "you are here") */
+    .stage-btn.completed {
+      background: #617EB5;
+      border-color: #617EB5;
+      color: #fff;
+    }
+    .stage-btn.completed .stage-btn-num { opacity: 0.9; }
+
+    /* Active: the currently selected stage — brightest */
+    .stage-btn.is-current {
+      background: #ffffff;
+      border-color: #ffffff;
+      color: #014083;
+    }
+    .stage-btn.is-current .stage-btn-num { opacity: 1; color: #617EB5; }
+
+    /* ============================================================
+       MOBILE: vertical timeline (top -> bottom)
+       ============================================================ */
+    @media (max-width: 768px) {
+      .stage-pipeline {
+        flex-direction: column;
+        gap: 0;
+        max-width: 420px;
+        margin: 0 auto;
+        position: relative;
+        padding-left: 8px;
+      }
+      .stage-btn,
+      .stage-btn:first-child,
+      .stage-btn:last-child {
+        /* Drop the chevron shape on mobile */
+        clip-path: none;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 14px;
+        padding: 18px 20px 18px 52px;
+        text-align: left;
+        border-radius: 10px;
+        margin-bottom: 10px;
+      }
+      /* Vertical connector line behind the nodes */
+      .stage-pipeline::before {
+        content: '';
+        position: absolute;
+        left: 30px;
+        top: 28px;
+        bottom: 28px;
+        width: 2px;
+        background: rgba(255,255,255,0.2);
+        z-index: 0;
+      }
+      /* Node dot for each stage */
+      .stage-btn::before {
+        content: '';
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #012d5c;
+        border: 2px solid rgba(255,255,255,0.4);
+        z-index: 1;
+        transition: background 0.25s ease, border-color 0.25s ease;
+      }
+      .stage-btn.completed::before {
+        background: #617EB5;
+        border-color: #fff;
+      }
+      .stage-btn.is-current::before {
+        background: #fff;
+        border-color: #fff;
+      }
+      .stage-btn-label { white-space: normal; }
+    }
+  </style>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="bg-white text-gray-800 antialiased">
+
+  <header class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-100 z-50">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <a href="/" class="flex items-center">
+          <img src="/images/logo-mark.png" alt="LCN Consulting" class="h-12">
+        </a>
+        <nav class="hidden lg:flex items-center space-x-10">
+          <a href="/" class="nav-link text-sm font-medium tracking-wide text-gray-600 hover:text-[#014083] transition-colors">Home</a>
+          <a href="/about" class="nav-link text-sm font-medium tracking-wide text-gray-600 hover:text-[#014083] transition-colors">About</a>
+          <a href="/services" class="nav-link active text-sm font-medium tracking-wide text-[#014083]">Services</a>
+          <a href="/why-lcn" class="nav-link text-sm font-medium tracking-wide text-gray-600 hover:text-[#014083] transition-colors">Why LCN</a>
+          <a href="/contact" class="nav-link text-sm font-medium tracking-wide text-gray-600 hover:text-[#014083] transition-colors">Contact</a>
+        </nav>
+        <a href="/contact" class="hidden lg:inline-flex items-center px-6 py-2.5 bg-[#014083] text-white text-sm font-semibold tracking-wide rounded hover:bg-[#012d5c] transition-colors">
+          Get in Touch
+        </a>
+        <button class="lg:hidden p-2 text-gray-600" id="menuBtn" aria-label="Open menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+      </div>
+    </div>
+    <div class="lg:hidden hidden bg-white border-t border-gray-100" id="mobileMenu">
+      <div class="px-6 py-4 space-y-3">
+        <a href="/" class="block text-sm font-medium text-gray-600">Home</a>
+        <a href="/about" class="block text-sm font-medium text-gray-600">About</a>
+        <a href="/services" class="block text-sm font-medium text-[#014083]">Services</a>
+        <a href="/why-lcn" class="block text-sm font-medium text-gray-600">Why LCN</a>
+        <a href="/contact" class="block text-sm font-medium text-gray-600">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="relative pt-32 pb-20 lg:pt-44 lg:pb-24 overflow-hidden bg-gradient-to-br from-[#f8fafc] via-white to-[#eef2f8]">
+      <div class="absolute inset-0 grid-pattern opacity-40"></div>
+      <div class="absolute top-32 right-20 w-72 h-72 rounded-full bg-[#617EB5]/10 blur-3xl"></div>
+      <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="max-w-4xl reveal">
+          <p class="text-[#617EB5] font-semibold text-sm tracking-[0.25em] uppercase mb-6 flex items-center gap-3">
+            <span class="inline-block w-8 h-px bg-[#617EB5]"></span>
+            Capabilities &amp; Products
+          </p>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-light text-[#014083] leading-[1.1] mb-8 tracking-tight">
+            Intelligence aligned to the decisions you face —<br>
+            <span class="font-semibold">stage by stage.</span>
+          </h1>
+          <p class="text-xl text-gray-600 leading-relaxed max-w-3xl">
+            LCN's services aren't organized around methodologies. They're organized around the questions pharma leaders actually need answered at each stage of development — from preclinical strategy through in-market defense.
+          </p>
+        </div>
+      </div>
+    </section>
+
+   
+
+    <!-- ============================================================
+         LIFECYCLE NAV
+         Bold navy section. Anchor links to each stage below.
+         ============================================================ -->
+    <section class="py-16 lg:py-20 bg-[#014083] relative overflow-hidden border-y border-[#012d5c]">
+      <div class="absolute inset-0 grid-pattern-light opacity-15"></div>
+      <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[36rem] h-[36rem] rounded-full bg-[#617EB5]/15 blur-3xl"></div>
+      <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="text-center mb-10 lg:mb-12">
+          <p class="text-[#9AAFD4] font-semibold text-xs tracking-[0.3em] uppercase mb-4 flex items-center justify-center gap-3">
+            <span class="inline-block w-8 h-px bg-[#9AAFD4]"></span>
+            The Product Lifecycle
+            <span class="inline-block w-8 h-px bg-[#9AAFD4]"></span>
+          </p>
+          <h2 class="text-2xl md:text-3xl lg:text-4xl font-light text-white leading-tight tracking-tight">
+            Jump to <span class="font-semibold">your stage.</span>
+          </h2>
+        </div>
+        <!-- Chevron pipeline timeline (desktop) / vertical timeline (mobile) -->
+        <div class="stage-pipeline" id="stageButtons" role="tablist" aria-label="Product lifecycle stages">
+          <button type="button" role="tab" data-stage="preclinical" data-index="0" class="stage-btn">
+            <span class="stage-btn-num">01</span>
+            <span class="stage-btn-label">Preclinical</span>
+          </button>
+          <button type="button" role="tab" data-stage="phase-1" data-index="1" class="stage-btn">
+            <span class="stage-btn-num">02</span>
+            <span class="stage-btn-label">Phase 1</span>
+          </button>
+          <button type="button" role="tab" data-stage="phase-2" data-index="2" class="stage-btn">
+            <span class="stage-btn-num">03</span>
+            <span class="stage-btn-label">Phase 2</span>
+          </button>
+          <button type="button" role="tab" data-stage="phase-3" data-index="3" class="stage-btn">
+            <span class="stage-btn-num">04</span>
+            <span class="stage-btn-label">Phase 3 &amp; Submission</span>
+          </button>
+          <button type="button" role="tab" data-stage="pre-launch" data-index="4" class="stage-btn">
+            <span class="stage-btn-num">05</span>
+            <span class="stage-btn-label">Pre-Launch</span>
+          </button>
+          <button type="button" role="tab" data-stage="in-market" data-index="5" class="stage-btn">
+            <span class="stage-btn-num">06</span>
+            <span class="stage-btn-label">In-Market</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Placeholder prompt shown until a stage is selected -->
+    <section id="stagePlaceholder" class="py-20 lg:py-28 bg-white">
+      <div class="max-w-3xl mx-auto px-6 lg:px-8 text-center">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#eef3fb] mb-6">
+          <svg class="w-6 h-6 text-[#617EB5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15l7-7 7 7"></path></svg>
+        </div>
+        <h3 class="text-xl lg:text-2xl font-light text-[#014083] mb-3">Select a stage above to begin.</h3>
+        <p class="text-gray-500 leading-relaxed max-w-xl mx-auto">Choose where your product sits in its lifecycle, and we'll show you the decisions you're facing and how LCN supports them at that stage.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         STAGE 1: PRECLINICAL
+         ============================================================ -->
+    <section id="preclinical" class="stage-panel py-20 lg:py-28 bg-white scroll-mt-24">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 mb-12 reveal">
+          <div class="lg:col-span-5">
+            <p class="text-[#617EB5] font-semibold text-xs tracking-[0.3em] uppercase mb-4">Stage 01</p>
+            <h2 class="text-3xl md:text-4xl font-light text-[#014083] leading-[1.15] tracking-tight mb-6">
+              <span class="font-semibold">Preclinical.</span><br>
+              Where the bet begins.
+            </h2>
+          </div>
+          <div class="lg:col-span-7 lg:pt-3">
+            <p class="text-lg text-gray-600 leading-relaxed mb-6">
+              Before clinical proof exists, decisions about target prioritization, modality choice, and pipeline investment shape what becomes possible later. The questions here are about scientific whitespace and long-horizon competitive landscape.
+            </p>
+            <p class="text-sm text-gray-500 italic">Key business questions at this stage:</p>
+            <ul class="mt-3 space-y-2 text-gray-600 text-sm leading-relaxed">
+              <li>— Which targets and pathways are most differentiated relative to the global pipeline?</li>
+              <li>— Where is the scientific and competitive whitespace we can credibly claim?</li>
+              <li>— How large is the addressable opportunity if this works, and which indications maximize it?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white p-8 border border-gray-200 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Product</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">LandscapeDI</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-grow">Comprehensive market landscape: pipeline, commercial brands, treatment algorithms, KOL perceptions, and whitespace. Triangulates digital intelligence with primary research.</p></div>
+          <div class="bg-[#f8fafc] p-8 border border-gray-100 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Capability</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">Market Sizing &amp; Epidemiology</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">Disease prevalence, eligible population modeling, and global geography of opportunity to assess the size of the prize before investment decisions are made.</p>
+          </div>
+          <div class="bg-[#f8fafc] p-8 border border-gray-100 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Capability</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">Long-Range Scenario Planning</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">Explore alternative competitive and scientific futures to inform portfolio prioritization and target selection at the earliest possible point.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         STAGE 2: PHASE 1
+         ============================================================ -->
+    <section id="phase-1" class="stage-panel py-20 lg:py-28 bg-[#f8fafc] scroll-mt-24">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 mb-12 reveal">
+          <div class="lg:col-span-5">
+            <p class="text-[#617EB5] font-semibold text-xs tracking-[0.3em] uppercase mb-4">Stage 02</p>
+            <h2 class="text-3xl md:text-4xl font-light text-[#014083] leading-[1.15] tracking-tight mb-6">
+              <span class="font-semibold">Phase 1.</span><br>
+              Read the early signals — yours and theirs.
+            </h2>
+          </div>
+          <div class="lg:col-span-7 lg:pt-3">
+            <p class="text-lg text-gray-600 leading-relaxed mb-6">
+              The first clinical signals from your asset arrive alongside competitor data. Trial design choices made here cascade into Phase 2 differentiation. BD&amp;L decisions get made with imperfect data and big stakes.
+            </p>
+            <p class="text-sm text-gray-500 italic">Key business questions at this stage:</p>
+            <ul class="mt-3 space-y-2 text-gray-600 text-sm leading-relaxed">
+              <li>— What are competitors signaling through their Phase 1 trial designs and early data?</li>
+              <li>— Is this asset worth in-licensing, partnering, or accelerating — and what does the BD&amp;L math actually look like?</li>
+              <li>— Which KOLs should we be cultivating now, and which investigators should anchor our trials?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white p-8 border border-gray-200 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Product</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">LandscapeDI</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-grow">Pipeline benchmarking, competitor trial design intelligence, and KOL perspectives on the emerging therapeutic category.</p></div>
+          <div class="bg-white p-8 border border-gray-200 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Product</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">MedConDI</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-grow">Medical congress intelligence: capture competitor positioning, KOL perception, and non-public domain signals as competitor data is released.</p></div>
+          <div class="bg-[#f8fafc] p-8 border border-gray-100 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Capability</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">Due Diligence &amp; BD&amp;L Support</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">Asset evaluation for in-licensing, M&amp;A, and co-promotion decisions. Forecast the value, stress-test the strategic fit.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         STAGE 3: PHASE 2
+         ============================================================ -->
+    <section id="phase-2" class="stage-panel py-20 lg:py-28 bg-white scroll-mt-24">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 mb-12 reveal">
+          <div class="lg:col-span-5">
+            <p class="text-[#617EB5] font-semibold text-xs tracking-[0.3em] uppercase mb-4">Stage 03</p>
+            <h2 class="text-3xl md:text-4xl font-light text-[#014083] leading-[1.15] tracking-tight mb-6">
+              <span class="font-semibold">Phase 2 → Phase 3.</span><br>
+              From "can this work" to "can this win."
+            </h2>
+          </div>
+          <div class="lg:col-span-7 lg:pt-3">
+            <p class="text-lg text-gray-600 leading-relaxed mb-6">
+              The asset has proof of concept. Now the question is whether it can win — and the Phase 3 design has to prove it. Billions in investment, the competitive narrative, and what launch will look like all get locked in here, three to five years ahead of market entry.
+            </p>
+            <p class="text-sm text-gray-500 italic">Key business questions at this stage:</p>
+            <ul class="mt-3 space-y-2 text-gray-600 text-sm leading-relaxed">
+              <li>— Where do we actually stand against competitors entering Phase 3 alongside us?</li>
+              <li>— What story will we tell, to whom, and why will they care more about us than the alternatives?</li>
+              <li>— How big is the opportunity, and can we defend a $500M+ Phase 3 commitment to the board?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white p-8 border border-gray-200 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Product</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">LandscapeDI</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-grow">Full competitive landscape and KOL perception baseline — the foundation for every downstream Phase 3 decision.</p></div>
+          <div class="bg-white p-8 border border-gray-200 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Product</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">PositionDI</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-grow">TPP stress-testing, whitespace mapping, and positioning hypothesis validation before Phase 3 design is locked. Know the winning story before you build the trial to prove it.</p></div>
+          <div class="bg-white p-8 border border-gray-200 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Product</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">MedConDI</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-grow">Real-time competitor Phase 2 data readout monitoring at major scientific congresses. The intelligence the room gives you — before competitors act on it.</p></div>
+          <div class="bg-[#f8fafc] p-8 border border-gray-100 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Capability</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">Forecasting &amp; Scenario Modeling</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">Patient-based forecasting, market sizing, sensitivity analysis. Defend the Phase 3 investment case with evidence, not assumptions.</p>
+          </div>
+          <div class="bg-[#f8fafc] p-8 border border-gray-100 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Capability</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">Phase 3 Readiness War Game</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">Stress-test the trial strategy against competitor moves. Pressure-test endpoints, indication strategy, and the commercial narrative before commitment.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         STAGE 4: PHASE 3 & SUBMISSION
+         ============================================================ -->
+    <section id="phase-3" class="stage-panel py-20 lg:py-28 bg-[#f8fafc] scroll-mt-24">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 mb-12 reveal">
+          <div class="lg:col-span-5">
+            <p class="text-[#617EB5] font-semibold text-xs tracking-[0.3em] uppercase mb-4">Stage 04</p>
+            <h2 class="text-3xl md:text-4xl font-light text-[#014083] leading-[1.15] tracking-tight mb-6">
+              <span class="font-semibold">Phase 3 in-flight → submission.</span><br>
+              Build the market while the trial runs.
+            </h2>
+          </div>
+          <div class="lg:col-span-7 lg:pt-3">
+            <p class="text-lg text-gray-600 leading-relaxed mb-6">
+              Most companies treat this stage as a waiting room. The companies that win at launch use every month of Phase 3 to build the commercial, medical, and access infrastructure that determines whether Day 1 is a success or a scramble.
+            </p>
+            <p class="text-sm text-gray-500 italic">Key business questions at this stage:</p>
+            <ul class="mt-3 space-y-2 text-gray-600 text-sm leading-relaxed">
+              <li>— Has the competitive landscape shifted since Phase 3 began — and what do we do about it?</li>
+              <li>— Have we built HCP segmentation, payer architecture, and brand pre-positioning before the data arrives?</li>
+              <li>— Is the scientific narrative being shaped by KOLs aligned to us, or to competitors?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white p-8 border border-gray-200 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Product · Retainer</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">MarketWatchDI</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-grow">Continuous competitive monitoring with rapid-alert and quarterly synthesis. Your competitors move continuously — your intelligence should too.</p></div>
+          <div class="bg-white p-8 border border-gray-200 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Product</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">LaunchFoundationDI</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-grow">HCP segmentation, payer landscape, brand pre-positioning, and HEOR evidence roadmap. Build the commercial engine before the data gives you permission.</p></div>
+          <div class="bg-white p-8 border border-gray-200 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Product</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">NarrativeDI</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-grow">KOL mapping, publication strategy, advisory board architecture, and pre-submission scientific narrative. Shape the conversation before your data shapes it for you.</p></div>
+          <div class="bg-white p-8 border border-gray-200 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Product</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">MedConDI</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-grow">Congress execution layer — primary KOL intelligence and competitive narrative monitoring as data emerges in the public domain.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         STAGE 5: PRE-LAUNCH
+         ============================================================ -->
+    <section id="pre-launch" class="stage-panel py-20 lg:py-28 bg-white scroll-mt-24">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 mb-12 reveal">
+          <div class="lg:col-span-5">
+            <p class="text-[#617EB5] font-semibold text-xs tracking-[0.3em] uppercase mb-4">Stage 05</p>
+            <h2 class="text-3xl md:text-4xl font-light text-[#014083] leading-[1.15] tracking-tight mb-6">
+              <span class="font-semibold">Pre-Launch.</span><br>
+              Sharpen the message. Size the field.
+            </h2>
+          </div>
+          <div class="lg:col-span-7 lg:pt-3">
+            <p class="text-lg text-gray-600 leading-relaxed mb-6">
+              Data has arrived. The label is taking shape. Now the work shifts to translating evidence into commercial execution: messaging that lands, sales force sized to the opportunity, channel mix that reaches the right prescribers, and a launch plan that survives competitive pressure.
+            </p>
+            <p class="text-sm text-gray-500 italic">Key business questions at this stage:</p>
+            <ul class="mt-3 space-y-2 text-gray-600 text-sm leading-relaxed">
+              <li>— Which messages resonate with HCPs, payers, and patients — and which are table stakes vs. true differentiators?</li>
+              <li>— How big should the field force be, and how do we deploy it against the highest-value prescribers?</li>
+              <li>— What competitive moves should we plan for, and how do we sequence launch decisions to stay ahead?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white p-8 border border-gray-200 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Product</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">Field-ForceDI</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-grow">Competitive field-force assessment: sizing, structure, call targeting, MSL deployment, and behavior. Confirmatory, non-public intelligence behind the enemy lines.</p></div>
+          <div class="bg-[#f8fafc] p-8 border border-gray-100 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Capability</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">Message Testing &amp; Concept Validation</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">Conjoint, MaxDiff, and concept testing across HCP, payer, and patient audiences to lock the messages that actually drive prescribing.</p>
+          </div>
+          <div class="bg-[#f8fafc] p-8 border border-gray-100 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Capability</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">Launch Scenario Planning</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">War gaming competitive responses, sequencing decisions, and stress-testing the go-to-market plan before launch commitment is irreversible.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         STAGE 6: IN-MARKET
+         ============================================================ -->
+    <section id="in-market" class="stage-panel py-20 lg:py-28 bg-[#f8fafc] scroll-mt-24">
+      <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 mb-12 reveal">
+          <div class="lg:col-span-5">
+            <p class="text-[#617EB5] font-semibold text-xs tracking-[0.3em] uppercase mb-4">Stage 06</p>
+            <h2 class="text-3xl md:text-4xl font-light text-[#014083] leading-[1.15] tracking-tight mb-6">
+              <span class="font-semibold">In-Market.</span><br>
+              Defend share. Find the next move.
+            </h2>
+          </div>
+          <div class="lg:col-span-7 lg:pt-3">
+            <p class="text-lg text-gray-600 leading-relaxed mb-6">
+              Launch is the beginning, not the finish line. Competitors respond, new entrants emerge, the payer environment shifts, and lifecycle decisions about indication expansion and lifecycle defense have to be made with the brand actively in the market.
+            </p>
+            <p class="text-sm text-gray-500 italic">Key business questions at this stage:</p>
+            <ul class="mt-3 space-y-2 text-gray-600 text-sm leading-relaxed">
+              <li>— Where is share moving, why, and what's the appropriate defensive response?</li>
+              <li>— What lifecycle moves — new indications, formulations, combinations — should we prioritize?</li>
+              <li>— How do we sustain advantage as competitors launch and patents progress toward expiry?</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white p-8 border border-gray-200 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Product · Retainer</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">MarketWatchDI</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-grow">Continuous in-market monitoring across competitors, regulatory, access, and KOL channels with rapid alerts on material events.</p></div>
+          <div class="bg-white p-8 border border-gray-200 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Product</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">MedConDI</h3>
+            <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-grow">Ongoing congress intelligence — track competitor data, KOL sentiment shifts, and emerging narrative changes in real time.</p></div>
+          <div class="bg-white p-8 border border-gray-100 reveal flex flex-col">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#617EB5] font-semibold mb-4">Capability</p>
+            <h3 class="text-xl font-semibold text-[#014083] mb-3 leading-snug">Lifecycle Strategy</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">Indication expansion prioritization, formulation strategy, and lifecycle defense planning grounded in competitive and market intelligence.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         WHY THE INTEGRATION MATTERS
+         The defensive moat — explicit competitor comparison
+         ============================================================ -->
+    <section class="py-20 lg:py-28 bg-[#014083] relative overflow-hidden">
+      <div class="absolute inset-0 grid-pattern-light opacity-20"></div>
+      <div class="absolute -top-32 -left-32 w-[28rem] h-[28rem] rounded-full bg-[#617EB5]/20 blur-3xl"></div>
+      <div class="relative max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="max-w-4xl mb-16 reveal">
+          <p class="text-[#9AAFD4] font-semibold text-xs tracking-[0.3em] uppercase mb-5 flex items-center gap-3">
+            <span class="inline-block w-8 h-px bg-[#9AAFD4]"></span>
+            Why a Single Firm Can Own This
+          </p>
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-light text-white leading-[1.15] tracking-tight mb-8">
+            The questions don't come in silos. <span class="font-semibold">Neither does the answer.</span>
+          </h2>
+          <p class="text-lg lg:text-xl text-[#cfd9ec] leading-relaxed">
+            Every product in the LCN portfolio requires more than one capability at the same time. That's why no single-capability competitor can replicate it.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-px bg-white/10 border border-white/15">
+          <div class="bg-[#014083] p-8 lg:p-10 reveal">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#9AAFD4] font-semibold mb-5">CI-Only Firms</p>
+            <p class="text-base text-white leading-relaxed">Can monitor the competitive landscape. Cannot tell you what HCPs are thinking, how payers are positioned, or whether the message will land.</p>
+          </div>
+          <div class="bg-[#014083] p-8 lg:p-10 reveal border-t md:border-t-0 md:border-l border-white/15">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#9AAFD4] font-semibold mb-5">Qual MR Houses</p>
+            <p class="text-base text-white leading-relaxed">Can run the HCP segmentation and the message testing. Have no CI capability to triangulate the signal against the competitive landscape.</p>
+          </div>
+          <div class="bg-[#014083] p-8 lg:p-10 reveal border-t md:border-t-0 md:border-l border-white/15">
+            <p class="text-xs tracking-[0.3em] uppercase text-[#9AAFD4] font-semibold mb-5">Strategy Consultancies</p>
+            <p class="text-base text-white leading-relaxed">Can write the narrative and frame the decision. Cannot field the primary research or sustain the continuous CI cadence to validate it.</p>
+          </div>
+        </div>
+
+        <p class="text-base text-[#9AAFD4] mt-12 italic reveal">
+          LCN delivers all four — under one operating system, governed by a single process, accountable for a single answer.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FINAL CTA
+         ============================================================ -->
+    <section class="py-20 lg:py-28 bg-white">
+      <div class="max-w-5xl mx-auto px-6 lg:px-8">
+        <div class="border-t border-gray-200 pt-16 lg:pt-20 text-center reveal">
+          <p class="text-[#617EB5] font-semibold text-xs tracking-[0.3em] uppercase mb-6">Start a Conversation</p>
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-light text-[#014083] leading-[1.15] tracking-tight mb-8">
+            Tell us where you are.<br>
+            <span class="font-semibold">We'll tell you what the answer requires.</span>
+          </h2>
+          <p class="text-lg lg:text-xl text-gray-600 leading-relaxed mb-10 max-w-3xl mx-auto">
+            Every engagement begins with the business decision, not the methodology. Share the question on your desk — we'll come back with the right combination of CI, research, analytics, and strategy to answer it defensibly.
+          </p>
+          <a href="/contact" class="inline-flex items-center px-10 py-4 bg-[#014083] text-white font-semibold tracking-wide rounded hover:bg-[#012d5c] transition-all hover:shadow-xl hover:-translate-y-0.5">
+            Start a Conversation
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+          </a>
+          <p class="text-sm text-gray-500 mt-8">
+            We respond to every inquiry within one business day.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-[#0d1929] text-white py-16">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div>
+          <img src="/images/logo-mark.png" alt="LCN Consulting" class="h-10 brightness-0 invert mb-6">
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Decision-ready intelligence for pharma and biotech leaders. Integrated research, competitive intelligence, analytics, and strategic consulting.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-semibold text-sm tracking-wide mb-4">Navigation</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+            <li><a href="/about" class="text-gray-400 hover:text-white transition-colors">About</a></li>
+            <li><a href="/services" class="text-gray-400 hover:text-white transition-colors">Services</a></li>
+            <li><a href="/why-lcn" class="text-gray-400 hover:text-white transition-colors">Why LCN</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-sm tracking-wide mb-4">Resources</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="/contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-sm tracking-wide mb-4">Get in Touch</h4>
+          <p class="text-gray-400 text-sm mb-4">Move from fragmented inputs to a confident decision.</p>
+          <a href="/contact" class="inline-flex items-center px-5 py-2.5 bg-[#617EB5] text-white text-sm font-medium rounded hover:bg-[#014083] transition-colors">
+            Start a Conversation
+          </a>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-500 text-sm">© 2025 LCN Consulting, Inc. All rights reserved.</p>
+        <div class="flex items-center space-x-6 mt-4 md:mt-0">
+          <a href="/privacy" class="text-gray-500 hover:text-white transition-colors text-sm">Privacy Policy</a>
+          <a href="/terms" class="text-gray-500 hover:text-white transition-colors text-sm">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/script.js"></script>
+  <script>
+    // Product Lifecycle — chevron pipeline tabs with cumulative "you are here" fill
+    (function () {
+      const buttons = Array.prototype.slice.call(document.querySelectorAll('.stage-btn'));
+      const panels = document.querySelectorAll('.stage-panel');
+      const placeholder = document.getElementById('stagePlaceholder');
+      if (!buttons.length || !panels.length) return;
+
+      function setPipelineState(activeIndex) {
+        buttons.forEach(function (btn) {
+          const idx = parseInt(btn.getAttribute('data-index'), 10);
+          btn.classList.remove('completed', 'is-current');
+          btn.setAttribute('aria-selected', 'false');
+          if (idx < activeIndex) {
+            btn.classList.add('completed');      // stages before -> filled
+          } else if (idx === activeIndex) {
+            btn.classList.add('completed', 'is-current'); // selected -> brightest
+            btn.setAttribute('aria-selected', 'true');
+          }
+        });
+      }
+
+      function showStage(stageId, activeIndex) {
+        // Hide all panels
+        panels.forEach(function (p) { p.classList.remove('is-active'); });
+        // Hide the placeholder prompt
+        if (placeholder) placeholder.style.display = 'none';
+        // Show the chosen panel
+        const target = document.getElementById(stageId);
+        if (target) { target.classList.add('is-active'); }
+        // Update the pipeline fill
+        setPipelineState(activeIndex);
+        // Scroll the stage into view smoothly
+        if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      }
+
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          showStage(btn.getAttribute('data-stage'), parseInt(btn.getAttribute('data-index'), 10));
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
