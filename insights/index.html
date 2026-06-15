@@ -46,16 +46,18 @@
     .li-card {
       width: 100%;
       max-width: 520px;
+      height: 620px;                /* uniform card height — even grid, no white gaps */
       border: 1px solid #e5e7eb;
       border-radius: 12px;
       overflow: hidden;
       background: #fff;
       box-shadow: 0 4px 20px -8px rgba(1, 64, 131, 0.12);
     }
-    /* LinkedIn iframes have a fixed width; let them scale down on small screens */
+    /* LinkedIn iframes fill the card; taller posts scroll inside their own frame */
     .li-card iframe {
       width: 100% !important;
       max-width: 100% !important;
+      height: 100% !important;
       display: block;
       border: 0;
     }
@@ -233,46 +235,5 @@
   </footer>
 
   <script src="/script.js"></script>
-  <script>
-    // Auto-resize LinkedIn embeds to their actual content height (removes white space)
-    (function () {
-      function resizeFromMessage(event) {
-        // Only handle messages coming from LinkedIn
-        if (!event.origin || event.origin.indexOf('linkedin.com') === -1) return;
-
-        // Extract a height value from the various shapes LinkedIn may send
-        var h = null;
-        var d = event.data;
-        if (d == null) return;
-
-        if (typeof d === 'number') {
-          h = d;
-        } else if (typeof d === 'object') {
-          if (typeof d.height === 'number') h = d.height;
-          else if (d.data && typeof d.data.height === 'number') h = d.data.height;
-        } else if (typeof d === 'string') {
-          // Sometimes a JSON string
-          try {
-            var parsed = JSON.parse(d);
-            if (parsed && typeof parsed.height === 'number') h = parsed.height;
-            else if (parsed && parsed.data && typeof parsed.data.height === 'number') h = parsed.data.height;
-          } catch (e) { /* not JSON, ignore */ }
-        }
-
-        if (!h || h < 100) return; // ignore tiny/no values
-
-        // Find the iframe whose contentWindow sent this message
-        var iframes = document.querySelectorAll('.li-card iframe');
-        for (var i = 0; i < iframes.length; i++) {
-          if (iframes[i].contentWindow === event.source) {
-            iframes[i].style.height = h + 'px';
-            iframes[i].setAttribute('height', h);
-            break;
-          }
-        }
-      }
-      window.addEventListener('message', resizeFromMessage, false);
-    })();
-  </script>
 </body>
 </html>
