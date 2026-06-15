@@ -30,6 +30,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss-browser/4.1.13/index.global.min.js"></script>
+  <style>
+    /* Stage tab panels: hidden by default, shown when .is-active is added */
+    .stage-panel { display: none; }
+    .stage-panel.is-active { display: block; }
+    /* Ensure reveal content is fully visible inside an active panel
+       (don't depend on the scroll observer re-firing for hidden-then-shown content) */
+    .stage-panel.is-active .reveal {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  </style>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-white text-gray-800 antialiased">
@@ -111,21 +122,32 @@
             Jump to <span class="font-semibold">your stage.</span>
           </h2>
         </div>
-        <div class="flex flex-wrap justify-center gap-3 lg:gap-4">
-          <a href="#preclinical" class="px-6 lg:px-7 py-3 lg:py-3.5 text-base lg:text-lg font-semibold text-white bg-white/10 border border-white/30 rounded-full backdrop-blur-sm hover:bg-white hover:text-[#014083] hover:border-white transition-all">Preclinical</a>
-          <a href="#phase-1" class="px-6 lg:px-7 py-3 lg:py-3.5 text-base lg:text-lg font-semibold text-white bg-white/10 border border-white/30 rounded-full backdrop-blur-sm hover:bg-white hover:text-[#014083] hover:border-white transition-all">Phase 1</a>
-          <a href="#phase-2" class="px-6 lg:px-7 py-3 lg:py-3.5 text-base lg:text-lg font-semibold text-white bg-white/10 border border-white/30 rounded-full backdrop-blur-sm hover:bg-white hover:text-[#014083] hover:border-white transition-all">Phase 2</a>
-          <a href="#phase-3" class="px-6 lg:px-7 py-3 lg:py-3.5 text-base lg:text-lg font-semibold text-white bg-white/10 border border-white/30 rounded-full backdrop-blur-sm hover:bg-white hover:text-[#014083] hover:border-white transition-all">Phase 3 &amp; Submission</a>
-          <a href="#pre-launch" class="px-6 lg:px-7 py-3 lg:py-3.5 text-base lg:text-lg font-semibold text-white bg-white/10 border border-white/30 rounded-full backdrop-blur-sm hover:bg-white hover:text-[#014083] hover:border-white transition-all">Pre-Launch</a>
-          <a href="#in-market" class="px-6 lg:px-7 py-3 lg:py-3.5 text-base lg:text-lg font-semibold text-white bg-white/10 border border-white/30 rounded-full backdrop-blur-sm hover:bg-white hover:text-[#014083] hover:border-white transition-all">In-Market</a>
+        <div class="flex flex-wrap justify-center gap-3 lg:gap-4" id="stageButtons">
+          <button type="button" data-stage="preclinical" class="stage-btn px-6 lg:px-7 py-3 lg:py-3.5 text-base lg:text-lg font-semibold text-white bg-white/10 border border-white/30 rounded-full backdrop-blur-sm hover:bg-white hover:text-[#014083] hover:border-white transition-all">Preclinical</button>
+          <button type="button" data-stage="phase-1" class="stage-btn px-6 lg:px-7 py-3 lg:py-3.5 text-base lg:text-lg font-semibold text-white bg-white/10 border border-white/30 rounded-full backdrop-blur-sm hover:bg-white hover:text-[#014083] hover:border-white transition-all">Phase 1</button>
+          <button type="button" data-stage="phase-2" class="stage-btn px-6 lg:px-7 py-3 lg:py-3.5 text-base lg:text-lg font-semibold text-white bg-white/10 border border-white/30 rounded-full backdrop-blur-sm hover:bg-white hover:text-[#014083] hover:border-white transition-all">Phase 2</button>
+          <button type="button" data-stage="phase-3" class="stage-btn px-6 lg:px-7 py-3 lg:py-3.5 text-base lg:text-lg font-semibold text-white bg-white/10 border border-white/30 rounded-full backdrop-blur-sm hover:bg-white hover:text-[#014083] hover:border-white transition-all">Phase 3 &amp; Submission</button>
+          <button type="button" data-stage="pre-launch" class="stage-btn px-6 lg:px-7 py-3 lg:py-3.5 text-base lg:text-lg font-semibold text-white bg-white/10 border border-white/30 rounded-full backdrop-blur-sm hover:bg-white hover:text-[#014083] hover:border-white transition-all">Pre-Launch</button>
+          <button type="button" data-stage="in-market" class="stage-btn px-6 lg:px-7 py-3 lg:py-3.5 text-base lg:text-lg font-semibold text-white bg-white/10 border border-white/30 rounded-full backdrop-blur-sm hover:bg-white hover:text-[#014083] hover:border-white transition-all">In-Market</button>
         </div>
+      </div>
+    </section>
+
+    <!-- Placeholder prompt shown until a stage is selected -->
+    <section id="stagePlaceholder" class="py-20 lg:py-28 bg-white">
+      <div class="max-w-3xl mx-auto px-6 lg:px-8 text-center">
+        <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#eef3fb] mb-6">
+          <svg class="w-6 h-6 text-[#617EB5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 15l7-7 7 7"></path></svg>
+        </div>
+        <h3 class="text-xl lg:text-2xl font-light text-[#014083] mb-3">Select a stage above to begin.</h3>
+        <p class="text-gray-500 leading-relaxed max-w-xl mx-auto">Choose where your product sits in its lifecycle, and we'll show you the decisions you're facing and how LCN supports them at that stage.</p>
       </div>
     </section>
 
     <!-- ============================================================
          STAGE 1: PRECLINICAL
          ============================================================ -->
-    <section id="preclinical" class="py-20 lg:py-28 bg-white scroll-mt-24">
+    <section id="preclinical" class="stage-panel py-20 lg:py-28 bg-white scroll-mt-24">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 mb-12 reveal">
           <div class="lg:col-span-5">
@@ -170,7 +192,7 @@
     <!-- ============================================================
          STAGE 2: PHASE 1
          ============================================================ -->
-    <section id="phase-1" class="py-20 lg:py-28 bg-[#f8fafc] scroll-mt-24">
+    <section id="phase-1" class="stage-panel py-20 lg:py-28 bg-[#f8fafc] scroll-mt-24">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 mb-12 reveal">
           <div class="lg:col-span-5">
@@ -214,7 +236,7 @@
     <!-- ============================================================
          STAGE 3: PHASE 2
          ============================================================ -->
-    <section id="phase-2" class="py-20 lg:py-28 bg-white scroll-mt-24">
+    <section id="phase-2" class="stage-panel py-20 lg:py-28 bg-white scroll-mt-24">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 mb-12 reveal">
           <div class="lg:col-span-5">
@@ -267,7 +289,7 @@
     <!-- ============================================================
          STAGE 4: PHASE 3 & SUBMISSION
          ============================================================ -->
-    <section id="phase-3" class="py-20 lg:py-28 bg-[#f8fafc] scroll-mt-24">
+    <section id="phase-3" class="stage-panel py-20 lg:py-28 bg-[#f8fafc] scroll-mt-24">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 mb-12 reveal">
           <div class="lg:col-span-5">
@@ -314,7 +336,7 @@
     <!-- ============================================================
          STAGE 5: PRE-LAUNCH
          ============================================================ -->
-    <section id="pre-launch" class="py-20 lg:py-28 bg-white scroll-mt-24">
+    <section id="pre-launch" class="stage-panel py-20 lg:py-28 bg-white scroll-mt-24">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 mb-12 reveal">
           <div class="lg:col-span-5">
@@ -359,7 +381,7 @@
     <!-- ============================================================
          STAGE 6: IN-MARKET
          ============================================================ -->
-    <section id="in-market" class="py-20 lg:py-28 bg-[#f8fafc] scroll-mt-24">
+    <section id="in-market" class="stage-panel py-20 lg:py-28 bg-[#f8fafc] scroll-mt-24">
       <div class="max-w-7xl mx-auto px-6 lg:px-8">
         <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 mb-12 reveal">
           <div class="lg:col-span-5">
@@ -512,5 +534,52 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    // Product Lifecycle — tab behavior: show only the selected stage, hide the rest
+    (function () {
+      const buttons = document.querySelectorAll('.stage-btn');
+      const panels = document.querySelectorAll('.stage-panel');
+      const placeholder = document.getElementById('stagePlaceholder');
+      if (!buttons.length || !panels.length) return;
+
+      const activeClasses = ['bg-white', 'text-[#014083]', 'border-white'];
+      const idleClasses = ['bg-white/10', 'text-white', 'border-white/30'];
+
+      function setActiveButton(activeBtn) {
+        buttons.forEach(function (btn) {
+          if (btn === activeBtn) {
+            idleClasses.forEach(function (c) { btn.classList.remove(c); });
+            activeClasses.forEach(function (c) { btn.classList.add(c); });
+          } else {
+            activeClasses.forEach(function (c) { btn.classList.remove(c); });
+            idleClasses.forEach(function (c) { btn.classList.add(c); });
+          }
+        });
+      }
+
+      function showStage(stageId, activeBtn) {
+        // Hide all panels
+        panels.forEach(function (p) { p.classList.remove('is-active'); });
+        // Hide the placeholder prompt
+        if (placeholder) placeholder.style.display = 'none';
+        // Show the chosen panel
+        const target = document.getElementById(stageId);
+        if (target) {
+          target.classList.add('is-active');
+        }
+        setActiveButton(activeBtn);
+        // Scroll the stage into view smoothly
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          showStage(btn.getAttribute('data-stage'), btn);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
