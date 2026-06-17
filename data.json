@@ -1,0 +1,663 @@
+{
+  "scorecard": [
+    {
+      "Metric": "Founder hunting days",
+      "Expected": 8,
+      "Agg": "sum"
+    },
+    {
+      "Metric": "Senior strategic conversations",
+      "Expected": 6,
+      "Agg": "sum"
+    },
+    {
+      "Metric": "Qualified pipeline — active opps",
+      "Expected": 8,
+      "Agg": "snapshot"
+    },
+    {
+      "Metric": "Dormant accounts reactivated",
+      "Expected": 1,
+      "Agg": "sum"
+    },
+    {
+      "Metric": "Strong accounts expanded",
+      "Expected": 1,
+      "Agg": "sum"
+    },
+    {
+      "Metric": "Pre-emptive proposals",
+      "Expected": 4,
+      "Agg": "sum"
+    },
+    {
+      "Metric": "Net-new wins",
+      "Expected": 1,
+      "Agg": "sum"
+    }
+  ],
+  "scorecard_weeks": [
+    {
+      "Month": "2026-06",
+      "Metric": "Founder hunting days",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-06",
+      "Metric": "Senior strategic conversations",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-06",
+      "Metric": "Qualified pipeline — active opps",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-06",
+      "Metric": "Dormant accounts reactivated",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-06",
+      "Metric": "Strong accounts expanded",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-06",
+      "Metric": "Pre-emptive proposals",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-06",
+      "Metric": "Net-new wins",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-07",
+      "Metric": "Founder hunting days",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-07",
+      "Metric": "Senior strategic conversations",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-07",
+      "Metric": "Qualified pipeline — active opps",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-07",
+      "Metric": "Dormant accounts reactivated",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-07",
+      "Metric": "Strong accounts expanded",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-07",
+      "Metric": "Pre-emptive proposals",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-07",
+      "Metric": "Net-new wins",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-08",
+      "Metric": "Founder hunting days",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-08",
+      "Metric": "Senior strategic conversations",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-08",
+      "Metric": "Qualified pipeline — active opps",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-08",
+      "Metric": "Dormant accounts reactivated",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-08",
+      "Metric": "Strong accounts expanded",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-08",
+      "Metric": "Pre-emptive proposals",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-08",
+      "Metric": "Net-new wins",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-09",
+      "Metric": "Founder hunting days",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-09",
+      "Metric": "Senior strategic conversations",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-09",
+      "Metric": "Qualified pipeline — active opps",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-09",
+      "Metric": "Dormant accounts reactivated",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-09",
+      "Metric": "Strong accounts expanded",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-09",
+      "Metric": "Pre-emptive proposals",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-09",
+      "Metric": "Net-new wins",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-10",
+      "Metric": "Founder hunting days",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-10",
+      "Metric": "Senior strategic conversations",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-10",
+      "Metric": "Qualified pipeline — active opps",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-10",
+      "Metric": "Dormant accounts reactivated",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-10",
+      "Metric": "Strong accounts expanded",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-10",
+      "Metric": "Pre-emptive proposals",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-10",
+      "Metric": "Net-new wins",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-11",
+      "Metric": "Founder hunting days",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-11",
+      "Metric": "Senior strategic conversations",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-11",
+      "Metric": "Qualified pipeline — active opps",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-11",
+      "Metric": "Dormant accounts reactivated",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-11",
+      "Metric": "Strong accounts expanded",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-11",
+      "Metric": "Pre-emptive proposals",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-11",
+      "Metric": "Net-new wins",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-12",
+      "Metric": "Founder hunting days",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-12",
+      "Metric": "Senior strategic conversations",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-12",
+      "Metric": "Qualified pipeline — active opps",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-12",
+      "Metric": "Dormant accounts reactivated",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-12",
+      "Metric": "Strong accounts expanded",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-12",
+      "Metric": "Pre-emptive proposals",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    },
+    {
+      "Month": "2026-12",
+      "Metric": "Net-new wins",
+      "W1": null,
+      "W2": null,
+      "W3": null,
+      "W4": null,
+      "W5": null
+    }
+  ],
+  "strategy": [
+    {
+      "Goal": "Accounts broadened (year-end)",
+      "Expected": 3,
+      "Current": 0
+    },
+    {
+      "Goal": "Dormant reactivated into live dialogue",
+      "Expected": 4,
+      "Current": 0
+    },
+    {
+      "Goal": "Net-new wins (full year)",
+      "Expected": 6,
+      "Current": 0
+    }
+  ],
+  "pipeline": [
+    {
+      "Client": "Teva",
+      "Project": "Preferred Vendor Status",
+      "Stage": "Open",
+      "Win Probability (%)": 0,
+      "Confidence": "Medium",
+      "Next Step": ""
+    },
+    {
+      "Client": "Galderma",
+      "Project": "KOL Database",
+      "Stage": "Open",
+      "Win Probability (%)": 0,
+      "Confidence": "Medium",
+      "Next Step": ""
+    },
+    {
+      "Client": "Galderma",
+      "Project": "Monitoring U.S.",
+      "Stage": "Open",
+      "Win Probability (%)": 0,
+      "Confidence": "Medium",
+      "Next Step": ""
+    },
+    {
+      "Client": "Galderma",
+      "Project": "Global Benchmark",
+      "Stage": "Open",
+      "Win Probability (%)": 0,
+      "Confidence": "Medium",
+      "Next Step": ""
+    },
+    {
+      "Client": "Xeris",
+      "Project": "Distribution Shift",
+      "Stage": "Open",
+      "Win Probability (%)": 0,
+      "Confidence": "Medium",
+      "Next Step": ""
+    },
+    {
+      "Client": "LifeMine",
+      "Project": "Monitoring",
+      "Stage": "Open",
+      "Win Probability (%)": 0,
+      "Confidence": "Medium",
+      "Next Step": ""
+    }
+  ],
+  "h2": [
+    {
+      "kpi": "Posts published",
+      "type": "sum",
+      "target": 8,
+      "months": {}
+    },
+    {
+      "kpi": "Impressions (total)",
+      "type": "sum",
+      "target": 3000,
+      "months": {}
+    },
+    {
+      "kpi": "Unique impressions",
+      "type": "sum",
+      "target": 1400,
+      "months": {}
+    },
+    {
+      "kpi": "Net new followers",
+      "type": "sum",
+      "target": 10,
+      "months": {}
+    },
+    {
+      "kpi": "Total followers (end of month)",
+      "type": "eom",
+      "target": null,
+      "months": {}
+    },
+    {
+      "kpi": "Clicks",
+      "type": "sum",
+      "target": 200,
+      "months": {}
+    },
+    {
+      "kpi": "Reactions",
+      "type": "sum",
+      "target": 50,
+      "months": {}
+    },
+    {
+      "kpi": "Comments",
+      "type": "sum",
+      "target": 15,
+      "months": {}
+    },
+    {
+      "kpi": "Reposts",
+      "type": "sum",
+      "target": 5,
+      "months": {}
+    },
+    {
+      "kpi": "Engagement rate (portfolio)",
+      "type": "avg",
+      "target": 8.0,
+      "months": {}
+    },
+    {
+      "kpi": "CTR (portfolio)",
+      "type": "avg",
+      "target": 6.0,
+      "months": {}
+    }
+  ],
+  "analysts": [
+    {
+      "Analyst": "Lauren"
+    },
+    {
+      "Analyst": "Brandon"
+    },
+    {
+      "Analyst": "Ethan"
+    }
+  ],
+  "tasks": [
+    {
+      "Task": "Command Engine",
+      "desc": "Intentional, outcome-driven interactions. Maps research purpose to business decisions before work begins."
+    },
+    {
+      "Task": "Account Intelligence",
+      "desc": "Full client and stakeholder visibility. Context on decision pathways and organizational dynamics."
+    },
+    {
+      "Task": "Insights Model",
+      "desc": "Adherence to operational process to derive insights versus findings."
+    },
+    {
+      "Task": "Ring Session",
+      "desc": "Adversarial review and quality control. Every output challenged before delivery."
+    },
+    {
+      "Task": "Risk Taken (1 per month)",
+      "desc": "Take at least one meaningful risk this month."
+    },
+    {
+      "Task": "Client Relationship 1",
+      "desc": "First client relationship touch this week."
+    },
+    {
+      "Task": "Client Relationship 2",
+      "desc": "Second client relationship touch this week."
+    },
+    {
+      "Task": "Other",
+      "desc": "Anything else worth tracking this week."
+    }
+  ],
+  "analyst_tasks": []
+}
