@@ -7,49 +7,56 @@ Static marketing site for **LCN Consulting, Inc.** — a pharmaceutical and biot
 - **HTML + Tailwind CSS** (loaded via CDN — no build step required)
 - **Vanilla JavaScript** for mobile menu, scroll reveals, smooth scrolling, FAQ accordion
 - **Raleway** typography (Google Fonts)
-- **HubSpot** for contact form embed and meeting scheduler
+- **Web3Forms** for the contact form submission endpoint
+- **HubSpot** for the meeting scheduler link
 
 ## Structure
 
 ```
 .
-├── index.html              # Home
-├── about.html              # About / mission / values / leadership
-├── services.html           # Four practice areas + engagement process
-├── why-lcn.html            # Differentiators, comparison, outcomes
-├── insights.html           # Article index + featured article
-├── contact.html            # HubSpot form + contact details + FAQ
-├── privacy.html            # Privacy Policy
-├── terms.html              # Terms of Service
+├── index.html                      # Home
+├── home/index.html                 # Home (duplicate of index.html, canonicalized to /)
+├── about/index.html                # About / mission / values / leadership
+├── services/index.html             # Four practice areas + engagement process
+├── why-lcn/index.html              # Differentiators, comparison, outcomes
+├── contact/index.html              # Web3Forms contact form + contact details + FAQ
+├── privacy.html                    # Privacy Policy
+├── terms.html                      # Terms of Service
 │
-├── insights/               # Long-form articles
-│   ├── forecasts-optimistic-by-design.html       (featured)
-│   ├── conference-signal-framework.html
-│   ├── kols-say-vs-prescribe.html
-│   ├── indication-sequencing.html
-│   ├── payer-evidence-shifting.html
-│   ├── portfolio-decision.html
-│   └── pricing-ira-era.html
+├── intelligence-center/
+│   ├── index.html                  # Hub: atomic essays + LinkedIn feed
+│   └── monitoring-versus-intelligence.html   # Atomic essay, Aug 18 2026
+│
+├── insights/index.html             # Redirect stub -> /intelligence-center
 │
 ├── images/
-│   ├── logo.png            # Full brand logo (transparent bg)
-│   ├── logo-mark.png       # Logo without tagline (used in nav/footer)
-│   ├── logo-source.jpg     # Original source file (backup)
-│   ├── og-image.png        # 1200×630 social share image
-│   ├── favicon.ico         # Multi-size browser favicon
-│   ├── favicon-16.png  / -32.png  / -48.png  / -64.png
-│   └── apple-touch-icon.png  (180×180)
+│   ├── logo.png                    # Full brand logo
+│   ├── logo-mark.png               # Nav / footer logo (currently identical to logo.png)
+│   ├── logo-source.jpg             # Original source file (backup)
+│   ├── og-lcn.png                  # 1200x630 social share card
+│   ├── favicon.ico                 # Multi-size browser favicon
+│   ├── favicon-16.png / -32.png / -48.png / -64.png
+│   └── apple-touch-icon.png        (180x180)
 │
-├── styles.css              # Brand styles, animations, gradients
-├── script.js               # Menu, scroll reveals, FAQ
+├── styles.css                      # Brand styles, animations, gradients
+├── script.js                       # Menu, scroll reveals, FAQ
 └── README.md
 ```
+
+### Publishing a new atomic essay
+
+1. Copy `intelligence-center/monitoring-versus-intelligence.html` to a new slug in the same folder.
+2. Replace the eyebrow date, `<h1>`, standfirst, and body paragraphs.
+3. Update `<title>`, `meta description`, `og:title`, `og:description`, `og:url`, `article:published_time`, and `rel=canonical`.
+4. Add a card for it in the Atomic Essays grid on `intelligence-center/index.html`.
+
+Body copy classes: `.essay p` for standard paragraphs, `.essay p.essay-turn` for the pivot line, `.essay p.essay-close` for the closing question.
 
 ## Deployment
 
 The site is fully static — no build pipeline. Deploy by uploading the entire repo to any static host (Netlify, Vercel, GitHub Pages, S3 + CloudFront, etc.).
 
-When a domain is connected, update the absolute URLs in the OG meta tags inside each page's `<head>` if `lcnconsult.com` ever changes.
+Every page carries `rel=canonical`, `og:url`, `og:image`, and `twitter:image` as absolute URLs. If `lcnconsult.com` ever changes, update those four tags in every page `<head>`.
 
 ## Contact info on site
 
@@ -67,12 +74,8 @@ Every page has a complete metadata block:
 - Twitter Card meta (`summary_large_image`)
 - Full favicon set including Apple touch icon
 
-The OG image (`images/og-image.png`) is rendered at 1200×630 — the LinkedIn / Facebook recommended dimensions — and uses the brand palette and dimensional-circles motif.
-
-## Scripts in this repo
-
-The `build_*.py` files in the source tree are the generators used to assemble the pages. They are not required for deployment — only the static HTML / CSS / JS / images are needed. They are kept in the repo for future regeneration if global changes (e.g. site-wide navigation update) are needed.
+The social share card (`images/og-lcn.png`) is rendered at 1200x630, the LinkedIn and Facebook recommended dimensions, and uses the LCN logo on a white field with a navy baseline rule.
 
 ## License
 
-© 2025 LCN Consulting, Inc. All rights reserved.
+© 2026 LCN Consulting, Inc. All rights reserved.
