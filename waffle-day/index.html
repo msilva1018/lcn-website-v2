@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How do you take your waffle? | LCN Consulting</title>
+<meta name="description" content="One question, four options. Cast your vote for National Waffle Day. Results posted Friday.">
+<link rel="canonical" href="https://lcnconsult.com/waffle-day">
+
+<!-- Open Graph -->
+<meta property="og:site_name" content="LCN Consulting">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://lcnconsult.com/waffle-day">
+<meta property="og:title" content="How do you take your waffle?">
+<meta property="og:description" content="One question, four options. Cast your vote for National Waffle Day.">
+<meta property="og:image" content="https://lcnconsult.com/images/og-waffle-day.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Happy National Waffle Day. LCN Consulting.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How do you take your waffle?">
+<meta name="twitter:description" content="One question, four options. Cast your vote for National Waffle Day.">
+<meta name="twitter:image" content="https://lcnconsult.com/images/og-waffle-day.png">
+
+<!-- ============================================================
+     PASTE YOUR EXISTING SITEWIDE HEAD BLOCK HERE:
+     Google Analytics 4 (gtag.js) + Microsoft Clarity + Apollo
+     The poll will not record anything without gtag on the page.
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        navy:      '#0E3C6E',
+        navydeep:  '#092A4E',
+        peri:      '#7C97C8',
+        syrup:     '#A5680C',
+        syrupsoft: '#FBF0DA',
+        mist:      '#F4F2ED',
+        ink:       '#16202B'
+      },
+      fontFamily: {
+        display: ['Figtree', 'system-ui', 'sans-serif'],
+        mono:    ['"IBM Plex Mono"', 'ui-monospace', 'monospace']
+      }
+    }
+  }
+}
+</script>
+
+<style>
+  body { -webkit-font-smoothing: antialiased; }
+
+  /* The signature: four quadrants of a waffle. Navy gaps read as the cut lines. */
+  .waffle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    background: #0E3C6E;
+    border-radius: 40px;
+    padding: 3px;
+    overflow: hidden;
+  }
+  .quad {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 160px;
+    padding: 20px;
+    background: #FFFFFF;
+    cursor: pointer;
+    transition: background .25s ease;
+  }
+  /* Waffle texture, sits behind the label */
+  .quad::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg,  rgba(14,60,110,.10) 0 1px, transparent 1px 30px),
+      repeating-linear-gradient(90deg, rgba(14,60,110,.10) 0 1px, transparent 1px 30px);
+    transition: opacity .3s ease, background-image .3s ease;
+    pointer-events: none;
+  }
+  /* Syrup pour on select */
+  .quad::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 40%, #FBF0DA 0%, #FBF0DA 60%, rgba(251,240,218,0) 100%);
+    opacity: 0;
+    transform: scale(.4);
+    transition: opacity .3s ease, transform .35s cubic-bezier(.22,1,.36,1);
+    pointer-events: none;
+  }
+  .quad:hover { background: #FDFBF6; }
+
+  .opt:checked + .quad { background: #FBF0DA; }
+  .opt:checked + .quad::after { opacity: 1; transform: scale(1); }
+  .opt:checked + .quad::before {
+    background-image:
+      repeating-linear-gradient(0deg,  rgba(165,104,12,.28) 0 2px, transparent 2px 30px),
+      repeating-linear-gradient(90deg, rgba(165,104,12,.28) 0 2px, transparent 2px 30px);
+  }
+  .opt:focus-visible + .quad {
+    outline: 3px solid #A5680C;
+    outline-offset: -3px;
+  }
+
+  .quad-label, .quad-tick { position: relative; z-index: 1; }
+  .quad-tick { opacity: 0; transition: opacity .2s ease; }
+  .opt:checked + .quad .quad-tick { opacity: 1; }
+
+  /* Corner rounding so the four quadrants form one round waffle */
+  .quad:nth-of-type(1) { border-radius: 37px 0 0 0; }
+  #q2 + .quad { border-radius: 0 37px 0 0; }
+  #q3 + .quad { border-radius: 0 0 0 37px; }
+  #q4 + .quad { border-radius: 0 0 37px 0; }
+
+  @media (max-width: 480px) {
+    .quad { min-height: 128px; padding: 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+    .quad::after { transform: none; }
+  }
+</style>
+</head>
+
+<body class="bg-white text-ink font-display">
+
+<header class="border-b border-mist">
+  <div class="max-w-3xl mx-auto px-6 h-20 flex items-center justify-between">
+    <a href="https://lcnconsult.com/">
+      <img src="/images/logo-mark.png" alt="LCN Consulting" class="h-9 w-auto">
+    </a>
+    <a href="https://lcnconsult.com/"
+       class="font-mono text-[11px] tracking-[0.14em] uppercase text-navy hover:text-syrup transition">
+      lcnconsult.com
+    </a>
+  </div>
+</header>
+
+<main class="max-w-3xl mx-auto px-6 pt-16 pb-20">
+
+  <p class="font-mono text-[11px] tracking-[0.18em] uppercase text-peri mb-5">
+    National Waffle Day &middot; August 24
+  </p>
+
+  <h1 class="font-extrabold text-navy leading-[0.95] tracking-[-0.03em] text-[clamp(2.6rem,8vw,4.5rem)]">
+    How do you take<br>your waffle?
+  </h1>
+
+  <div class="w-24 h-1 bg-peri mt-7 mb-6"></div>
+
+  <p class="text-lg text-ink/70 max-w-md mb-12">
+    One question. One pick. Nothing else is being asked of you today.
+  </p>
+
+  <div id="poll">
+    <fieldset>
+      <legend class="sr-only">How do you take your waffle?</legend>
+
+      <div class="waffle">
+        <input type="radio" name="waffle" id="q1" value="butter_syrup"   class="opt sr-only">
+        <label for="q1" class="quad">
+          <span class="quad-tick font-mono text-[10px] tracking-[0.16em] uppercase text-syrup mb-2">Selected</span>
+          <span class="quad-label font-semibold text-navy text-lg leading-snug">Butter and syrup,<br>nothing else</span>
+        </label>
+
+        <input type="radio" name="waffle" id="q2" value="fruit_cream"    class="opt sr-only">
+        <label for="q2" class="quad">
+          <span class="quad-tick font-mono text-[10px] tracking-[0.16em] uppercase text-syrup mb-2">Selected</span>
+          <span class="quad-label font-semibold text-navy text-lg leading-snug">Fruit and<br>whipped cream</span>
+        </label>
+
+        <input type="radio" name="waffle" id="q3" value="fried_chicken"  class="opt sr-only">
+        <label for="q3" class="quad">
+          <span class="quad-tick font-mono text-[10px] tracking-[0.16em] uppercase text-syrup mb-2">Selected</span>
+          <span class="quad-label font-semibold text-navy text-lg leading-snug">Fried chicken<br>on top</span>
+        </label>
+
+        <input type="radio" name="waffle" id="q4" value="savory_no_syrup" class="opt sr-only">
+        <label for="q4" class="quad">
+          <span class="quad-tick font-mono text-[10px] tracking-[0.16em] uppercase text-syrup mb-2">Selected</span>
+          <span class="quad-label font-semibold text-navy text-lg leading-snug">Savory,<br>no syrup</span>
+        </label>
+      </div>
+    </fieldset>
+
+    <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+      <button id="castBtn" type="button" disabled
+        class="bg-navy text-white font-semibold text-base px-9 py-4 rounded-full
+               hover:bg-navydeep transition disabled:opacity-30 disabled:cursor-not-allowed
+               focus:outline-none focus-visible:ring-4 focus-visible:ring-peri">
+        Cast your vote
+      </button>
+      <p id="hint" class="font-mono text-[11px] tracking-[0.14em] uppercase text-ink/40">
+        Pick one to continue
+      </p>
+    </div>
+  </div>
+
+  <div id="thanks" class="hidden">
+    <div class="border-l-4 border-syrup bg-syrupsoft/60 pl-7 pr-6 py-8 rounded-r-2xl">
+      <p class="font-mono text-[11px] tracking-[0.18em] uppercase text-syrup mb-3">Vote cast</p>
+      <p class="font-extrabold text-navy text-3xl leading-tight tracking-[-0.02em] mb-3">
+        Logged: <span id="pick"></span>
+      </p>
+      <p class="text-ink/70 max-w-sm">
+        Results posted Friday on our LinkedIn page.
+      </p>
+    </div>
+    <a href="https://lcnconsult.com/intelligence-center"
+       class="inline-block mt-9 font-mono text-[11px] tracking-[0.14em] uppercase text-navy border-b-2 border-peri pb-1 hover:text-syrup hover:border-syrup transition">
+      Read the Intelligence Center
+    </a>
+  </div>
+
+</main>
+
+<footer class="border-t border-mist">
+  <div class="max-w-3xl mx-auto px-6 py-8 flex flex-wrap justify-between gap-4">
+    <p class="font-mono text-[11px] tracking-[0.1em] text-ink/40">
+      &copy; 2026 LCN Consulting, Inc.
+    </p>
+    <p class="font-mono text-[11px] tracking-[0.1em] text-ink/40">
+      One vote per visitor. No data collected beyond the answer.
+    </p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  /* ------------------------------------------------------------------
+     OPTIONAL: paste your Google Apps Script web app URL here to write
+     every vote to a Google Sheet. Leave as "" to rely on GA4 only.
+  ------------------------------------------------------------------ */
+  var SHEET_ENDPOINT = "";
+
+  var LABELS = {
+    butter_syrup:    "Butter and syrup, nothing else",
+    fruit_cream:     "Fruit and whipped cream",
+    fried_chicken:   "Fried chicken on top",
+    savory_no_syrup: "Savory, no syrup"
+  };
+
+  var STORE_KEY = "lcn_waffle_2026";
+  var btn    = document.getElementById("castBtn");
+  var hint   = document.getElementById("hint");
+  var poll   = document.getElementById("poll");
+  var thanks = document.getElementById("thanks");
+  var pick   = document.getElementById("pick");
+  var radios = document.querySelectorAll(".opt");
+  var choice = null;
+
+  function read()  { try { return localStorage.getItem(STORE_KEY); } catch (e) { return null; } }
+  function write(v){ try { localStorage.setItem(STORE_KEY, v); } catch (e) {} }
+
+  function showThanks(value) {
+    pick.textContent = LABELS[value] || value;
+    poll.classList.add("hidden");
+    thanks.classList.remove("hidden");
+  }
+
+  radios.forEach(function (r) {
+    r.addEventListener("change", function () {
+      choice = r.value;
+      btn.disabled = false;
+      hint.textContent = "Ready";
+    });
+  });
+
+  btn.addEventListener("click", function () {
+    if (!choice) return;
+    btn.disabled = true;
+
+    /* 1. GA4: one uniquely named event per option, readable straight from
+          Reports > Engagement > Events with no custom dimension setup. */
+    if (typeof gtag === "function") {
+      gtag("event", "waffle_vote_" + choice);
+      gtag("event", "waffle_vote", { choice: choice });
+    }
+
+    /* 2. Optional Google Sheet write. no-cors keeps Apps Script happy. */
+    if (SHEET_ENDPOINT) {
+      try {
+        fetch(SHEET_ENDPOINT, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ choice: choice, ts: new Date().toISOString() })
+        });
+      } catch (e) {}
+    }
+
+    write(choice);
+    showThanks(choice);
+  });
+
+  var prior = read();
+  if (prior) showThanks(prior);
+})();
+</script>
+
+</body>
+</html>
